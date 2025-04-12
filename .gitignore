@@ -1,0 +1,5 @@
+*.db
+bin/*
+ideas/*
+.vscode
+.DS_Store
