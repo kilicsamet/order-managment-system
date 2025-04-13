@@ -1,4 +1,4 @@
-module inventory-service
+module order-services
 
 go 1.22
 

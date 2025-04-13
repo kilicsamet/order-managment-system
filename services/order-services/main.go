@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"inventory-service/api"
-	"inventory-service/application"
-	"inventory-service/config"
-	"inventory-service/database"
+	"order-services/api"
+	"order-services/application"
+	"order-services/config"
+	"order-services/database"
+
 	"log"
 )
 
@@ -30,7 +31,6 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	go app.ListenToOrderQueue()
 	apiService := api.New("0.0.0.0:"+config.HttpListenPort, app)
 	apiService.Start()
 	defer apiService.Stop()

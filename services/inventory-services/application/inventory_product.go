@@ -41,7 +41,9 @@ func (s *ApplicationService) CreateInventoryProduct(req types.InventoryProduct) 
 
 func (s *ApplicationService) ListenToOrderQueue() {
 	for {
-		msgs, err := s.rabbitMQService.ConsumeMessages("order_queue")
+
+		queueNames := []string{"order_queue", "success_queue"}
+		msgs, err := s.rabbitMQService.ConsumeMessages(queueNames)
 		if err != nil {
 			log.Printf("Error consuming messages: %s. Retrying in 2 seconds...", err)
 			time.Sleep(2 * time.Second)
@@ -56,7 +58,6 @@ func (s *ApplicationService) ListenToOrderQueue() {
 		}
 	}
 }
-
 func (s *ApplicationService) processOrder(msg amqp.Delivery) error {
 	var orderMsg InventoryMessage
 	if err := json.Unmarshal(msg.Body, &orderMsg); err != nil {
@@ -156,7 +157,6 @@ func (s *ApplicationService) UpdateInventoryProductQuantity(productID uint, quan
 		return fmt.Errorf("failed to update inventory quantity: %v", err)
 	}
 
-	log.Printf("Inventory for Product ID %d updated to %d", productID, newQuantity)
 	return nil
 }
 

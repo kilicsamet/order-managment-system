@@ -114,26 +114,10 @@ func (s *RabbitMQService) PublishMessage(queueName string, body []byte) error {
 	return nil
 }
 
-func (s *RabbitMQService) ConsumeMessages(queueNames []string) (<-chan amqp.Delivery, error) {
-	if err := s.ensureChannelOpen(); err != nil {
-		return nil, err
-	}
-	for _, queueName := range queueNames {
-		_, err := s.channel.QueueDeclare(
-			queueName, // Kuyruk adı
-			true,      // Durable: Kuyruk, RabbitMQ restart sonrası korunacak
-			false,     // Delete when unused: Kullanılmadığı takdirde kuyruk silinsin mi?
-			false,     // Exclusive: Sadece bu bağlantı tarafından kullanılacak
-			false,     // NoWait: Cevap beklemeden işlemi başlat
-			nil,       // Args: Opsiyonel parametreler
-		)
-		if err != nil {
-			return nil, fmt.Errorf("failed to declare queue %s: %w", queueName, err)
-		}
-	}
-
+func (s *RabbitMQService) ConsumeMessages(queueName string) (<-chan amqp.Delivery, error) {
+	// Consume işlemi, kanal ve kuyruk varsa başlayacaktır
 	msgs, err := s.channel.Consume(
-		queueNames[0],
+		queueName,
 		"",
 		true,  // AutoAck: Mesajın otomatik olarak onaylanması
 		false, // Exclusive: Sadece bu kanal kullanabilir
@@ -142,7 +126,7 @@ func (s *RabbitMQService) ConsumeMessages(queueNames []string) (<-chan amqp.Deli
 		nil,   // Args: Opsiyonel parametreler
 	)
 	if err != nil {
-		return nil, fmt.Errorf("failed to consume messages from queue %s: %w", queueNames[0], err)
+		return nil, fmt.Errorf("failed to consume messages from queue %s: %w", queueName, err)
 	}
 
 	return msgs, nil

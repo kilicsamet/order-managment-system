@@ -24,7 +24,7 @@ func New(listenAddr string, appService *application.ApplicationService) *APIServ
 		listenAddr: listenAddr,
 		fiberApp: fiber.New(fiber.Config{
 			DisableStartupMessage: false,
-			Prefork:               true,
+			Prefork:               false,
 		}),
 		handlerService: handService,
 	}

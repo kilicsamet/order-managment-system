@@ -1,8 +1,8 @@
 package api
 
 import (
-	"inventory-service/application"
-	"inventory-service/handlers"
+	"order-services/application"
+	"order-services/handlers"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"

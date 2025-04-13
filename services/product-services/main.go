@@ -24,7 +24,7 @@ func main() {
 		return
 	}
 
-	apiService := api.New(":"+config.HttpListenPort, app)
+	apiService := api.New("0.0.0.0:"+config.HttpListenPort, app)
 	apiService.Start()
 	defer apiService.Stop()
 	select {}
