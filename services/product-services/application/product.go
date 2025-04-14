@@ -101,3 +101,28 @@ func (s *ApplicationService) GetAllProducts() (types.ListProductsResponse, error
 
 	return products, nil
 }
+
+func (s *ApplicationService) SeedInitialProducts() error {
+	products := []types.Product{
+		{
+			Name:        "Rose",
+			Price:       22,
+			ImageURL:    "/images/product-1.jpg",
+			Description: "This beautiful flower will brighten up any room. Known for its vibrant colors and sweet fragrance, it’s the perfect addition to any floral arrangement.",
+		},
+		{
+			Name:        "Daisy",
+			Price:       45,
+			ImageURL:    "/images/product-2.jpg",
+			Description: "A timeless flower, perfect for expressing love and admiration. Its soft petals and delicate fragrance make it a favorite for many.",
+		},
+	}
+
+	for _, p := range products {
+		_, err := s.CreateProduct(p)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}

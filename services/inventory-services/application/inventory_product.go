@@ -210,3 +210,24 @@ func (s *ApplicationService) GetAllInventoryProducts() (types.ListInventoryProdu
 
 	return products, nil
 }
+
+func (s *ApplicationService) SeedInitialInventoryProducts() error {
+	products := []types.InventoryProduct{
+		{
+			ProductID: 1,
+			Quantity:  100,
+		},
+		{
+			ProductID: 2,
+			Quantity:  100,
+		},
+	}
+
+	for _, p := range products {
+		_, err := s.CreateInventoryProduct(p)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}

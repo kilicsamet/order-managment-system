@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "Rose",
+    "price": 22,
+    "image_url": "/images/product-1.jpg",
+    "description": "This beautiful flower will brighten up any room. Known for its vibrant colors and sweet fragrance, it’s the perfect addition to any floral arrangement.",
+    "quantitiy":100
+  },
+  {
+    "id": 2,
+    "name": "Daisy",
+    "price": 45,
+    "image_url": "/images/product-2.jpg",
+    "description": "A timeless flower, perfect for expressing love and admiration. Its soft petals and delicate fragrance make it a favorite for many.",
+    "quantitiy":100
+  }
+]

@@ -33,6 +33,19 @@ func main() {
 	go app.ListenToOrderQueue()
 	apiService := api.New("0.0.0.0:"+config.HttpListenPort, app)
 	apiService.Start()
+
+	resp, err := app.GetAllInventoryProducts()
+	if err != nil {
+		log.Fatalf("Failed to fetch products: %v", err)
+	}
+	if len(resp.InventoryProducts) == 0 {
+		log.Println("Product table is empty, seeding initial data...")
+		err := app.SeedInitialInventoryProducts()
+		if err != nil {
+			log.Fatalf("Failed to seed products: %v", err)
+		}
+	}
+
 	defer apiService.Stop()
 	select {}
 }

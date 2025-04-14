@@ -1,0 +1,33 @@
+# .dockerignore
+
+# Node modülleri ve bağımlılıklar
+node_modules/
+npm-debug.log
+
+# Test ve build dosyaları
+dist/
+build/
+coverage/
+
+# IDE ve editör dosyaları
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Çevre değişkenleri
+.env
+.env.local
+.env*.local
+
+# Git
+.git/
+.gitignore
+
+# Diğer
+.DS_Store
+docker-compose.yml
+docker-compose.*.yml
